@@ -1,46 +1,48 @@
-🧠 NLP Text Summarizer (Extractive + Abstractive)
+# 🧠 NLP Text Summarizer (Extractive + Abstractive)
 
-An NLP-based web application that summarizes long text using both Extractive and Abstractive techniques.
-The application allows side-by-side comparison of summaries and displays compression ratio metrics to measure summarization efficiency.
+An NLP-based web application that summarizes long text using **Extractive (TF-IDF)** and **Abstractive (DistilBART Transformer)** techniques.  
+The application also provides **side-by-side comparison** and **compression ratio metrics** to evaluate summarization performance.
 
-This project demonstrates the use of traditional NLP (TF-IDF) and modern Transformer models (DistilBART) in a single application.
+---
 
-🚀 Features
+# 🚀 Features
 
-✂️ Extractive Summarization
+- ✂️ **Extractive Summarization**
+  - Uses TF-IDF and word frequency scoring
+  - Selects the most relevant sentences from the original text
 
-Uses TF-IDF and word frequency scoring
+- 🤖 **Abstractive Summarization**
+  - Uses the DistilBART Transformer model
+  - Generates a human-like summary
 
-Selects the most important sentences from the original text
+- 📊 **Side-by-Side Comparison**
+  - Compare extractive and abstractive summaries
 
-🤖 Abstractive Summarization
+- 📉 **Compression Ratio Metrics**
+  - Displays how much the original text was reduced
 
-Uses DistilBART Transformer
+- 🌐 **Simple Web Interface**
+  - Lightweight frontend built using HTML, CSS, and JavaScript
 
-Generates a new human-like summary
+---
 
-📊 Side-by-Side Comparison
+# 🏗️ Tech Stack
 
-Compare extractive and abstractive results
+| Layer | Technology |
+|------|------------|
+| Language | Python 3.10+ |
+| Backend | Flask (REST API) |
+| Frontend | HTML, CSS, JavaScript |
+| NLP Libraries | NLTK, Scikit-learn |
+| Deep Learning | HuggingFace Transformers |
+| Model | `sshleifer/distilbart-cnn-12-6` |
+| Framework | PyTorch |
 
-📉 Compression Ratio Metrics
+---
 
-Shows how much the text was reduced
+# 📂 Project Structure
 
-🌐 Simple Web Interface
-
-Lightweight frontend with HTML, CSS, and JavaScript
-
-🏗️ Tech Stack
-Layer	Technology
-Language	Python 3.10+
-Backend	Flask (REST API)
-Frontend	HTML, CSS, JavaScript
-NLP Libraries	NLTK, Scikit-learn
-Deep Learning	HuggingFace Transformers
-Model	sshleifer/distilbart-cnn-12-6
-Framework	PyTorch
-📂 Project Structure
+```
 text-summarizer/
 │
 ├── backend/
@@ -51,39 +53,77 @@ text-summarizer/
 │
 └── frontend/
     └── index.html           # Web interface
-⚙️ Installation
-1️⃣ Clone the repository
+```
+
+---
+
+# ⚙️ Installation
+
+### 1️⃣ Clone the repository
+
+```bash
 git clone https://github.com/your-username/text-summarizer.git
 cd text-summarizer
-2️⃣ Install dependencies
+```
+
+### 2️⃣ Install dependencies
+
+```bash
 cd backend
 pip install -r requirements.txt
-3️⃣ Download required NLTK data
+```
+
+### 3️⃣ Download required NLTK data
 
 Run this once in Python:
 
+```python
 import nltk
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('punkt_tab')
-4️⃣ Start the Flask server
+```
+
+### 4️⃣ Start the Flask server
+
+```bash
 python app.py
-5️⃣ Run the frontend
+```
 
-Open the file below in your browser:
+### 5️⃣ Open the frontend
 
+Open the following file in your browser:
+
+```
 frontend/index.html
-🔗 API Endpoints
-Method	Endpoint	Description
-GET	/health	Check server status
-POST	/summarize/extractive	TF-IDF summarization
-POST	/summarize/abstractive	DistilBART summarization
-POST	/summarize/compare	Compare both methods
-📡 Example API Request
+```
+
+---
+
+# 🔗 API Endpoints
+
+| Method | Endpoint | Description |
+|------|-----------|-------------|
+| GET | `/health` | Check server status |
+| POST | `/summarize/extractive` | TF-IDF summarization |
+| POST | `/summarize/abstractive` | DistilBART summarization |
+| POST | `/summarize/compare` | Compare both methods |
+
+---
+
+# 📡 Example API Request
+
+```bash
 curl -X POST http://localhost:5000/summarize/extractive \
 -H "Content-Type: application/json" \
 -d '{"text": "Your long text here...", "num_sentences": 3}'
-📥 Example Response
+```
+
+---
+
+# 📥 Example Response
+
+```json
 {
   "summary": "Generated summary text.",
   "method": "Extractive (TFIDF)",
@@ -91,91 +131,44 @@ curl -X POST http://localhost:5000/summarize/extractive \
   "summary_word_count": 64,
   "compression_ratio": "80.0%"
 }
-⚙️ How It Works
-1️⃣ Extractive Summarization (TF-IDF)
+```
 
-Clean and tokenize the input text
+---
 
-Compute TF-IDF scores for words
+# ⚙️ How It Works
 
-Score each sentence using the sum of word scores
+### Extractive Summarization (TF-IDF)
 
-Select the top N sentences
+1. Clean and tokenize the text  
+2. Compute TF-IDF scores for each word  
+3. Score sentences using the sum of their word scores  
+4. Select the top N highest scoring sentences  
+5. Return them in their original order  
 
-Return them in the original order
+---
 
-2️⃣ Abstractive Summarization (DistilBART)
+### Abstractive Summarization (DistilBART)
 
-Tokenize input into subword tokens
+1. Convert text into subword tokens  
+2. Pass tokens through the transformer encoder  
+3. Generate contextual embeddings  
+4. Produce a summary token-by-token using beam search decoding  
 
-Pass tokens through the Transformer encoder
+---
 
-Generate contextual embeddings
+### Compression Ratio
 
-Produce a new summary token-by-token using beam search decoding
+```
+Compression Ratio = (1 − Summary Words / Original Words) × 100%
+```
 
-3️⃣ Compression Ratio
-𝐶
-𝑜
-𝑚
-𝑝
-𝑟
-𝑒
-𝑠
-𝑠
-𝑖
-𝑜
-𝑛
- 
-𝑅
-𝑎
-𝑡
-𝑖
-𝑜
-=
-(
-1
-−
-𝑆
-𝑢
-𝑚
-𝑚
-𝑎
-𝑟
-𝑦
- 
-𝑊
-𝑜
-𝑟
-𝑑
-𝑠
-𝑂
-𝑟
-𝑖
-𝑔
-𝑖
-𝑛
-𝑎
-𝑙
- 
-𝑊
-𝑜
-𝑟
-𝑑
-𝑠
-)
-×
-100
-Compression Ratio=(1−
-Original Words
-Summary Words
-	​
+This metric indicates how much the original text has been reduced.
 
-)×100
+---
 
-This metric shows how much the original text was reduced.
+# 📦 Dependencies
 
-📦 Dependencies
+```
 flask==3.0.0
 flask-cors==4.0.0
 nltk==3.8.1
@@ -184,30 +177,33 @@ numpy==1.26.2
 transformers==4.36.0
 torch==2.1.1
 sentencepiece==0.1.99
-⚠️ Notes
+```
 
-The abstractive model downloads ~500MB on first run and caches locally.
+---
 
-Texts over 700 words are automatically truncated for abstractive summarization.
+# ⚠️ Notes
 
-Extractive summarization works fully offline.
+- The abstractive model downloads **~500MB on first run** and then caches locally.
+- Texts longer than **700 words are automatically truncated** before abstractive processing.
+- Extractive summarization works **fully offline**.
+- Minimum input length:
+  - **30 words** for Extractive
+  - **50 words** for Abstractive
 
-Minimum input:
+---
 
-30 words → Extractive
+# 🔮 Future Improvements
 
-50 words → Abstractive
+- ROUGE score evaluation  
+- PDF and document upload support  
+- Multilingual summarization using mBART  
+- BERT-based sentence scoring  
+- Keyword extraction feature  
 
-🔮 Future Improvements
+---
 
-📊 ROUGE score evaluation
+# 👨‍💻 Author
 
-📄 PDF & document upload
+**Tushar Aggarwal**
 
-🌍 Multilingual summarization (mBART)
-
-🧠 BERT-based sentence scoring
-
-🔑 Keyword extraction
-
-🖥️ Better UI with summary visualization
+Computer Science Student | AI & NLP Enthusiast
